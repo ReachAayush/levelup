@@ -1,0 +1,21 @@
+^C-e:1:in `sleep': Interrupt
+	  from -e:1:in `<main>'
+
+bash-3.2$ ruby -e 'sleep 1 while true' & # now in the bg
+[4] 5978
+bash-3.2$ fg 4 # bring it back
+ruby -e 'sleep 1 while true'
+^Z
+[4]+  Stopped                 ruby -e 'sleep 1 while true'
+bash-3.2$ echo "now to the bg again"
+now to the bg again
+bash-3.2$ ps # let's find it
+  PID TTY           TIME CMD
+   5370 ttys003    0:00.34 bash
+    5963 ttys003    0:00.03 ruby -e sleep 1 while true
+     5976 ttys003    0:00.04 ruby -e sleep 1 while true
+      5978 ttys003    0:00.03 ruby -e sleep 1 while true
+       5395 ttys004    0:00.08 bash
+        5785 ttys005    0:00.02 -bash
+	bash-3.2$ kill 5978 # done
+	bash-3.2$
