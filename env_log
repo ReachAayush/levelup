@@ -1,0 +1,31 @@
+bash-3.2$ printenv
+TERM_PROGRAM=iTerm.app
+SHELL=/bin/bash
+TERM=xterm-256color
+TMPDIR=/var/folders/kz/1s27kl6j5k1_kwbc7w779ccw000lnh/T/
+Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.JQovsiIAa5/Render
+OLDPWD=/Users/acoyle/github
+USER=acoyle
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.guRKmgZyAZ/Listeners
+__CF_USER_TEXT_ENCODING=0x4EB0:0x0:0x0
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+PWD=/Users/acoyle
+EDITOR=emacs
+LANG=en_US.UTF-8
+ITERM_PROFILE=Default
+XPC_FLAGS=0x0
+XPC_SERVICE_NAME=0
+SHLVL=1
+COLORFGBG=7;0
+HOME=/Users/acoyle
+ITERM_SESSION_ID=w0t2p0
+LOGNAME=acoyle
+_=/usr/bin/printenv
+bash-3.2$ printenv | grep "EDITOR" # seems like overkill
+EDITOR=emacs
+bash-3.2$ cat .bashrc | grep "EDITOR" # no vim for me
+export EDITOR=emacs
+bash-3.2$ echo $PATH # will let us know what's in the path variable"
+/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+bash-3.2$ which ruby # tells us what gets executed when we run it
+/usr/bin/ruby
