@@ -1,0 +1,59 @@
+ash-3.2$ echo "First we're going to move around some relative paths"
+First we're going to move around some relative paths
+bash-3.2$ pwd
+/Users/acoyle
+bash-3.2$ l
+Applications	Desktop		Documents	Downloads	Library		Movies		Music		Pictures	Public		github
+bash-3.2$ cd Library/
+bash-3.2$ pwd
+/Users/acoyle/Library
+bash-3.2$ l
+Accounts	Calendars		Dictionaries		Input Methods		Logs			PubSub			SyncedPreferences
+Address Book Plug-Ins			ColorPickers		      Favorites					Internet Plug-Ins	Mail			Saved Application State	Voices
+Application Support			Colors			      							 FontCollections			      Keyboard Layouts	Messages		Screen Savers		WebKit
+Assistants  				Compositions									 					      Fonts    					Keychains			PreferencePanes		Services		com.apple.nsurlsessiond
+Audio																				      						Containers						Google					LanguageModeling	Preferences		Sounds			iMovie
+Caches																																						Cookies									IdentityServices	LaunchAgents		Printers		Spelling
+bash-3.2$ cd ..
+bash-3.2$ pwd
+/Users/acoyle
+bash-3.2$ cd ..
+bash-3.2$ pwd
+/Users
+bash-3.2$ l
+Shared		acoyle		administrator
+bash-3.2$ cd acoyle/
+bash-3.2$ echo "back where we started"
+back where we started
+bash-3.2$ echo "now let's go to some absolute paths"
+now let's go to some absolute paths
+bash-3.2$ cd /
+bash-3.2$ pwd
+/
+bash-3.2$ l
+Applications			User Information		cores				installer.failurerequests	sbin
+Library				     								Users							dev				net				tmp
+Network																											Volumes				etc				opt				usr
+System																																							bin				home				private				var
+bash-3.2$ cd /usr/bin/
+bash-3.2$ pwd
+/usr/bin
+bash-3.2$ echo "won't print this one"
+won't print this one
+bash-3.2$ echo "let's go home"
+let's go home
+bash-3.2$ cd ~
+bash-3.2$ pwd
+/Users/acoyle
+bash-3.2$ echo "let's go back up to the top, this time with relative moves"
+let's go back up to the top, this time with relative moves
+bash-3.2$ cd ..
+bash-3.2$ cd ..
+bash-3.2$ pwd
+/
+bash-3.2$ cd ~
+bash-3.2$ echo "and back again"
+and back again
+bash-3.2$ pwd
+/Users/acoyle
+bash-3.2$
