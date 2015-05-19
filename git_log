@@ -1,0 +1,70 @@
+bash-3.2$ pwd # let's get started with git
+/Users/acoyle/github/level_up_exercises
+bash-3.2$ git branch just_git
+bash-3.2$ git checkout just_git
+Switched to branch 'just_git'
+bash-3.2$ echo "time to make a file" > test.txt
+bash-3.2$ git status
+On branch just_git
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+  test.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+bash-3.2$ git add test.txt # we should probably track it
+bash-3.2$ git status
+On branch just_git
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+  new file:   test.txt
+
+bash-3.2$ git commit -m "we should commit this too"
+[just_git e62c515] we should commit this too
+ 1 file changed, 1 insertion(+)
+  create mode 100644 test.txt
+  bash-3.2$ git push -u origin just_git # and push it up
+  Counting objects: 3, done.
+  Delta compression using up to 8 threads.
+  Compressing objects: 100% (2/2), done.
+  Writing objects: 100% (3/3), 306 bytes | 0 bytes/s, done.
+  Total 3 (delta 1), reused 0 (delta 0)
+  To git@github.com:packrat386/level_up_exercises.git
+   * [new branch]      just_git -> just_git
+   Branch just_git set up to track remote branch just_git from origin.
+   bash-3.2$ echo "now time for the partner to make some commits" >> test.txt
+   bash-3.2$ git status
+   On branch just_git
+   Your branch is up-to-date with 'origin/just_git'.
+   Changes not staged for commit:
+     (use "git add <file>..." to update what will be committed)
+       (use "git checkout -- <file>..." to discard changes in working directory)
+
+       modified:   test.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+bash-3.2$ git add test.txt
+bash-3.2$ git status
+On branch just_git
+Your branch is up-to-date with 'origin/just_git'.
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+  modified:   test.txt
+
+bash-3.2$ git commit -m "authored by _partner" --author="_partner"
+fatal: --author '_partner' is not 'Name <email>' and matches no existing author
+bash-3.2$ git commit -m "authored by _partner" --author="_partner <fake@email.com>" # oops, haven't used that cmd before
+[just_git b176aaf] authored by _partner
+ Author: _partner <fake@email.com>
+  1 file changed, 1 insertion(+)
+  bash-3.2$ git push
+  Counting objects: 3, done.
+  Delta compression using up to 8 threads.
+  Compressing objects: 100% (3/3), done.
+  Writing objects: 100% (3/3), 327 bytes | 0 bytes/s, done.
+  Total 3 (delta 1), reused 0 (delta 0)
+  To git@github.com:packrat386/level_up_exercises.git
+     e62c515..b176aaf  just_git -> just_git
+     bash-3.2$
