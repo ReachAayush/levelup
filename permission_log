@@ -1,0 +1,19 @@
+bash-3.2$ touch /tmp/test # let's see what the default permissions are
+bash-3.2$ ll /tmp/test
+-rw-r--r--  1 acoyle  wheel  0 May 19 16:31 /tmp/test
+bash-3.2$ echo "seems to be read/write for the creator, and read only for all others"
+seems to be read/write for the creator, and read only for all others
+bash-3.2$ chown root:wheel /tmp/test # change it's owner
+chown: /tmp/test: Operation not permitted
+bash-3.2$ sudo !! # looks like we'll need sudo here
+sudo chown root:wheel /tmp/test # change it's owner # looks like we'll need sudo here
+bash-3.2$ sudo chmod 777 /tmp/test #let's just let people do whatever
+bash-3.2$ ll /tmp/test
+-rwxrwxrwx  1 root  wheel  0 May 19 16:31 /tmp/test
+bash-3.2$ chmod g-r /tmp/test # no need for root to read this
+chmod: Unable to change file mode on /tmp/test: Operation not permitted
+bash-3.2$ sudo !!
+sudo chmod g-r /tmp/test # no need for root to read this
+bash-3.2$ ll /tmp/test # see?
+-rwx-wxrwx  1 root  wheel  0 May 19 16:31 /tmp/test
+bash-3.2$
