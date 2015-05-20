@@ -1,0 +1,5 @@
+Because a diagram was so graciously provided by joe in his blog I felt that I would be unable to do the concept justice with mere ascii art of my own. Thus I will explain.
+
+In a modern web stack the proxy chain is as follows. When the user makes a request it first goes to the ASM, which verifies that the request is ok to be serviced. The request is then sent to a load balancer, which selects the web node to handle this request. Within the web node, there is generally the top level server (something like nginx) which serves the static content and makes request to the individual application servers (like puma) to handle things like templating.
+
+proxies allow us to serve our customers better because first they tend to make it possible to have faster connections since they aren't all trying to connect to the same box. They can also help in that there is less chance of having single point of failure that will shut down the entire site.
