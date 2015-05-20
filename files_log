@@ -1,0 +1,19 @@
+FILES THAT AREN'T LIKE FILES
+/dev/random and /dev/null are good examples of standard inclusions on UNIX system that can be used like files but aren't really
+
+Other examples of types of files that we use during development would be sockets, which are file descriptors (at least in C), but are used as connections where one program can write and the other can read. Named pipes are another example of this kind of file.
+
+POSTGRES PID FILE
+
+This was hard to do even after installing postgres :P
+
+bash-3.2$ pwd
+/Users/acoyle/Library/Application Support/Postgres/var-9.4
+bash-3.2$ cat postmaster.pid
+1939
+/Users/acoyle/Library/Application Support/Postgres/var-9.4
+1432139161
+5432
+/tmp
+localhost
+  5432001   2424832
