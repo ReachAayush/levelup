@@ -1,0 +1,6 @@
+acoyle@ip-10-5-82-48:/$ sudo service ssh restart
+[ ok ] Restarting OpenBSD Secure Shell server: sshd.
+acoyle@ip-10-5-82-48:/$ sudo service nginx
+Usage: nginx {start|stop|restart|reload|force-reload|status|configtest}
+acoyle@ip-10-5-82-48:/$ sudo service nginx reload
+Reloading nginx configuration: nginx
