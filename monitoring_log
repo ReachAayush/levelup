@@ -1,0 +1,6 @@
+WHAT TO MONITOR
+ - Inidividual server health (CPU and memory usage, uptime)
+ - Incoming and outgoing connections
+ - Database health
+
+One way that you could hopefully ignore momentary spikes would be to check the median or average over a period of time instead of monitoring any time there is a spike. If you make the period of time reasonably short then it's unlikely that you'll miss an event, but the monitoring on the average would ensure that brief spikes don't have too much impact.
