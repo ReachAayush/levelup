@@ -1,0 +1,26 @@
+bash-3.2$ cd ~
+bash-3.2$ df
+Filesystem    512-blocks     Used Available Capacity iused    ifree %iused  Mounted on
+/dev/disk0s2   488555536 35986832 452056704     8% 4562352 56507088    7%   /
+devfs                361      361         0   100%     626        0  100%   /dev
+map -hosts             0        0         0   100%       0        0  100%   /net
+map auto_home          0        0         0   100%       0        0  100%   /home
+map -fstab             0        0         0   100%       0        0  100%   /Network/Servers
+bash-3.2$ du -d 1 -h # we'll set depth to one so that we don't have to read the entire tree
+4.4M	  ./.cisco
+4.0K	  ./.cups
+  0B	  ./.emacs.d
+   12K	  ./.ssh
+     0B	  ./.Trash
+     748K ./Applications
+       0B ./Desktop
+         0B	./Documents
+	  53M	./Downloads
+	  1.5M	./github
+	  418M	./Library
+	    0B	./Movies
+	      0B	./Music
+	        0B	./Pictures
+		  0B	./Public
+		  478M	.
+		  bash-3.2$ # we can check memory usage using htop
