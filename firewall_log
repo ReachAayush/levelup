@@ -1,0 +1,13 @@
+acoyle@ip-10-5-82-48:/$ sudo iptables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+acoyle@ip-10-5-82-48:/$
+
+
+A whitelist approach is often better than a blacklist since if you knew what connections were going to be malicious you wouldn't have much of a problem. A whitelist approach is unlikely to let in someone that you didn't expect.
