@@ -1,0 +1,8 @@
+WHEN TO USE SUDO
+ - Commonly on linux sudo is necessary to install via package managers (sudo apt-get install ...)
+ - Modifying permissions or setting up files in directories owned by root (such as adding things to /bin)
+
+WHEN SUDO IS DANGEROUS
+ - Deleting things, if you don't own it should you really be deleting it?
+ - Using git, if you sudo with git you can often mess with permissions on files
+ - anything that can run a shell if sudoed might put you into a root shell, which is quite dangerous
