@@ -1,0 +1,14 @@
+bash-3.2$ echo "testing 1 2 3" > test.txt
+bash-3.2$ scp test.txt acoyle@acoyle-6ad.dev.enova.com:/home/acoyle
+The authenticity of host 'acoyle-6ad.dev.enova.com (10.5.82.48)' can't be established.
+RSA key fingerprint is bc:54:b6:ee:be:5a:4b:3f:e5:8e:fa:6d:9f:92:3d:66.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'acoyle-6ad.dev.enova.com' (RSA) to the list of known hosts.
+test.txt                                                                                                                                                                  100%   14     0.0KB/s   00:00
+bash-3.2$ cat test.txt
+testing 1 2 3
+bash-3.2$ rm test.txt
+bash-3.2$ scp acoyle@acoyle-6ad.dev.enova.com:/home/acoyle/test.txt test.txt
+test.txt                                                                                                                                                                  100%   14     0.0KB/s   00:00
+bash-3.2$ cat test.txt
+testing 1 2 3
