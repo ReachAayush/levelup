@@ -1,0 +1,10 @@
+1: When we say comments lie, we usually mean that the code is likely to do something that the comment did not say that it would do (or in prticulalry bad cases, something that the comment expressly said it would not do). This can be the case for a few reasons. THe first, and probably most common is that the author of the comment didn't notice a slight bug, perhaps a side-effect or a precondition that the comment didn't mention. Another very common case where comments lie is when the code has been updated, but the comments that describe the code have not been.
+
+2: In Ruby the general thought on explaining ones code is that the names of the variables and functions should be explanatory as to what they do. A function with the signature convert_to_string(number) is likely to be a function that takes a number and converts it to a string. When combined with proper class level design, this method can eliminate the need for a lot of comments. THe other main way that Ruby code can be explained to others is through a test suite that indicates what it is expected to do. The benefit of the test suite is that if the code's function is changed but the test suite is not then someone should notice sooner or later.
+
+3: Self documenting code would be code that is designed in such a way that it is evident to a programmer with reasonable fluency in the language what the code is doing without having to look at human readable comments
+
+
+WHEN TO USE COMMENTS
+
+The idea of self documenting code is certainly attractive and Ruby has been built up over the years as a language that is capable of being understood just by looking at the code. That said, there are many cases where complicated looking code may be necessary, e.g. when working with older libraries. At it's core, your processor mostly understands byte arrays and addresses (pointers), but those concepts are not particularly understandable to the average person. It is a necessity that someone will have to write the complicated code, even if it's just to make something like the Ruby interpreter possible, and when that person happens to be you, remember to comment.
