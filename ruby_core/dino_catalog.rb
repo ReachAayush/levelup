@@ -1,4 +1,4 @@
-require "CSV"
+require 'CSV'
 
 # DinoDex is a class that manages the information about various Dinosaurs
 class DinoDex
@@ -6,60 +6,53 @@ class DinoDex
 
   # I assume this is an init idiom since it was used in robot name
   def initialize(args = {})
-    @dinos = Array.new
-    if args[:dinos]
-      @dinos.replace(args[:dinos])
-    end
+    @dinos = []
+    @dinos.replace(args[:dinos]) if args[:dinos]
   end
 
   def clone
-    dex = DinoDex.new({ :dinos => @dinos})
+    DinoDex.new(dinos: @dinos)
   end
 
   def bipeds
     newdex = clone
-    newdex.dinos.keep_if { |d| d.biped? }
-    return newdex
+    newdex.dinos.keep_if(:biped?)
   end
 
   def carnivores
     newdex = clone
-    newdex.dinos.keep_if { |d| d.carnivore? }
-    return newdex
+    newdex.dinos.keep_if(:biped?)
   end
 
   def in_period(period)
     newdex = clone
     newdex.dinos.keep_if { |d| d.period?(period) }
-    return newdex
   end
 
   def big_dinos
     newdex = clone
-    newdex.dinos.keep_if { |d| d.big? }
-    return newdex
+    newdex.dinos.keep_if(:big?)
   end
 
   def to_s
     str = "DinoDex Entries\n"
     dinos.each { |d| str += d.to_s }
-    return str
   end
 
   def read(csv)
-    CSV.foreach(csv) do |row|
-      #puts row
-      h = Hash.new
-      h[:name] = row[0]
-      h[:period] = row[1]
-      h[:continent] = row[2]
-      h[:diet] = row[3]
-      h[:weight] = row[4]
-      h[:walking] = row[5]
-      h[:description] = row[6]
-      dinos << Dinosaur.new(h)
-      puts "added"
-    end
+    CSV.foreach(csv) { |row| add_row(row) }
+  end
+
+  def add_row(row)
+    h = {}
+    h[:name] = row[0]
+    h[:period] = row[1]
+    h[:continent] = row[2]
+    h[:diet] = row[3]
+    h[:weight] = row[4]
+    h[:walking] = row[5]
+    h[:description] = row[6]
+    dinos << Dinosaur.new(h)
   end
 end
 
@@ -68,26 +61,21 @@ class Dinosaur
   attr_accessor :name, :period, :continent, :walking, :diet, :weight, :description
 
   def initialize(args = {})
-    puts args
-    self.name = args[:name] || ""
-    self.period = args[:period] || ""
-    self.continent = args[:continent] || ""
-    self.walking = args[:walking] || ""
-    self.diet = args[:diet] || ""
-    self.weight = args[:weight] || ""
-    self.description = args[:description] || ""
+    args.each do |k, v|
+      instance_variable_set("@#{k}", v || '')
+    end
   end
-  
+
   def biped?
-    walking == "Biped"
+    walking == 'Biped'
   end
 
   def carnivore?
-    [ "Carnivore", "Piscivore", "Insectivore" ].include?(diet)
+    %w(Carnivore Piscivore Insectivore).include?(diet)
   end
 
   def period?(match_period)
-    period =~ /((Early|Late)\s)?#{match_period}/ 
+    period =~ /((Early|Late)\s)?#{match_period}/
   end
 
   def big?
@@ -95,7 +83,7 @@ class Dinosaur
   end
 
   def to_s
-    str = ""
+    str = ''
     str += "name: #{name}\n" unless name.empty?
     str += "period: #{period}\n" unless period.empty?
     str += "continent: #{continent}\n" unless continent.empty?
@@ -103,11 +91,11 @@ class Dinosaur
     str += "weight: #{weight}\n" unless weight.empty?
     str += "walking: #{walking}\n" unless walking.empty?
     str += "description: #{description}\n" unless description.empty?
-    str += "\n"
+    str + "\n"
   end
 end
 
 dex = DinoDex.new
-dex.read("dinodex.csv")
-#puts dex
-puts dex.in_period("Cretaceous")
+dex.read('dinodex.csv')
+# puts dex
+puts dex.in_period('Cretaceous')
