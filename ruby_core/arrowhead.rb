@@ -1,5 +1,5 @@
 class Arrowhead
-  # This seriously belongs in a database.
+       .  # This seriously belongs in a database.
   CLASSIFICATIONS = {
     far_west: {
       notched: "Archaic Side Notch",
