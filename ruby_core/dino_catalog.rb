@@ -1,5 +1,62 @@
 require 'CSV'
 
+class DinoParser
+  attr_accessor :rows
+  HEADERS = {
+    'NAME' => :name,
+    'PERIOD' => :period,
+    'CONTINENT' => :continent,
+    'DIET' => :diet,
+    'WEIGHT_IN_LBS' => :weight,
+    'WALKING' => :walking,
+    'DESCRIPTION' => :description,
+    'Genus' => :name,
+    'Period' => :period,
+    'Carnivore' => :carnivore,
+    'Weight' => :weight,
+    'Walking' => :walking
+  }
+
+  def initialize(csv)
+    @data_indices = {}
+    @rows = CSV.read(csv)
+    parse_headers(rows.shift)
+  end
+
+  def dinos
+    dinos = []
+    while rows.length != 0 do
+      dinos << Dinosaur.new(parse_row(rows.shift))
+    end
+    return dinos
+  end
+  
+  private
+  def parse_headers(head)
+    head.each_index do |i|
+      @data_indices[i] = HEADERS[head[i]]
+    end
+  end
+
+  def parse_row(row)
+    dino = {}
+    row.each_index do |i|
+      dino[@data_indices[i]] = row[i]
+    end
+    carnivore_fix(dino)
+    return dino
+  end
+
+  def carnivore_fix(dino)
+    # we have to do the hardcode somewhere, I chose here
+    if dino[:carnivore] == 'Yes'
+      dino[:diet] = 'Carnivore'
+    elsif dino[:carnivore] == 'No'
+      dino[:diet] = 'Herbivore'
+    end
+  end
+end  
+
 # DinoDex is a class that manages the information about various Dinosaurs
 class DinoDex
   attr_accessor :dinos
@@ -10,18 +67,23 @@ class DinoDex
     @dinos.replace(args[:dinos]) if args[:dinos]
   end
 
+  def read(csv)
+    reader = DinoParser.new(csv)
+    @dinos.replace(reader.dinos)
+  end
+  
   def clone
     DinoDex.new(dinos: @dinos)
   end
 
   def bipeds
     newdex = clone
-    newdex.dinos.keep_if(:biped?)
+    newdex.dinos.keep_if(&:biped?)
   end
 
   def carnivores
     newdex = clone
-    newdex.dinos.keep_if(:biped?)
+    newdex.dinos.keep_if(&:carnivore?)
   end
 
   def in_period(period)
@@ -31,38 +93,35 @@ class DinoDex
 
   def big_dinos
     newdex = clone
-    newdex.dinos.keep_if(:big?)
+    newdex.dinos.keep_if(&:big?)
   end
 
+  def query(hash)
+    newdex = clone
+    newdex.dinos.keep_if do |d|
+      dino_matches_hash?(d, hash)
+    end
+  end
+  
   def to_s
     str = "DinoDex Entries\n"
     dinos.each { |d| str += d.to_s }
   end
 
-  def read(csv)
-    CSV.foreach(csv) { |row| add_row(row) }
-  end
-
-  def add_row(row)
-    h = {}
-    h[:name] = row[0]
-    h[:period] = row[1]
-    h[:continent] = row[2]
-    h[:diet] = row[3]
-    h[:weight] = row[4]
-    h[:walking] = row[5]
-    h[:description] = row[6]
-    dinos << Dinosaur.new(h)
+  private
+  def dino_matches_hash?(dino, hash)
+    hash.all? { |k, v| dino.send(k) == v }
   end
 end
 
 # Dinosaur is a class that tracks to information for an individual species
 class Dinosaur
-  attr_accessor :name, :period, :continent, :walking, :diet, :weight, :description
+  DATA_TYPES = [:name, :period, :continent, :walking, :diet, :weight, :description, :carnivore]
+  attr_accessor *DATA_TYPES
 
   def initialize(args = {})
-    args.each do |k, v|
-      instance_variable_set("@#{k}", v || '')
+    DATA_TYPES.each do |var|
+      instance_variable_set("@#{var}", args[var] || '')
     end
   end
 
@@ -84,18 +143,19 @@ class Dinosaur
 
   def to_s
     str = ''
-    str += "name: #{name}\n" unless name.empty?
-    str += "period: #{period}\n" unless period.empty?
-    str += "continent: #{continent}\n" unless continent.empty?
-    str += "diet: #{diet}\n" unless diet.empty?
-    str += "weight: #{weight}\n" unless weight.empty?
-    str += "walking: #{walking}\n" unless walking.empty?
-    str += "description: #{description}\n" unless description.empty?
+    instance_variables.each do |var|
+      str += "#{var}: #{instance_variable_get(var)}\n" unless instance_variable_get(var).empty?
+    end
     str + "\n"
   end
 end
 
 dex = DinoDex.new
 dex.read('dinodex.csv')
-# puts dex
 puts dex.in_period('Cretaceous')
+
+newdex = DinoDex.new
+newdex.read('african_dinosaur_export.csv')
+puts newdex.carnivores
+
+puts newdex.query(name: "Afrovenator")
