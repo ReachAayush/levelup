@@ -1,0 +1,7 @@
+TREATISE ON TRUSTING DEVELOPERS
+
+1: We probably shouldn't trust that the person who just wrote the code wrote it properly. For starters, there is good statistical evidence that bugs exist in newly written code, based on every single piece of code I have ever written or seen written. ever. Second, the programmer is likely to have programmed for the most likely scenario, while not taking into account edge cases. Lastly the programmer that worked on this may have been tired, or hungry, or distracted and could have written the code incorrectly.
+
+2: When testing code we have to watch out for accidentally tuning our tests to the code instead of testing what the behavior should be. It's particularly easy to do this when you were the person who worte the code. If you know what the code will do, then you write a test that says the code will do what YOU expect. But, this doesn't take into account whether or not that is what the code should be doing
+
+3: We should allow someone else to test our code because they are more likely to test it in ways that we didn't expect. If we were writing some inut as a test case then naturally we would have to expect that that input is possible.
