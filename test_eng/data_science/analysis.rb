@@ -1,3 +1,7 @@
+class InputError < RuntimeError
+end
+
+
 class Analysis
   def initialize(data)
     @cohorts = {}
@@ -10,6 +14,10 @@ class Analysis
     c = @cohorts[cohort]
     c.size * c.conversion
   end
+
+  def sample_size(cohort)
+    @cohorts[cohort].size
+  end
   
   private
 
@@ -19,6 +27,7 @@ class Analysis
     def initialize(name, size, conversion)
       @name = name
       @size = size
+      raise InputError, "negative size" if size < 0
       @conversion = conversion
     end
   end
