@@ -1,0 +1,42 @@
+[
+    {
+	"date": "2015-5-26",
+	"cohort": "B",
+	"result": 0
+    },
+    {
+	"date": "2015-5-26",
+	"cohort": "B",
+	"result": 1
+    },
+    {
+	"date": "2015-5-26",
+	"cohort": "A",
+	"result": 1
+    },
+    {
+	"date": "2015-5-26",
+	"cohort": "B",
+	"result": 0
+    },
+    {
+	"date": "2015-5-26",
+	"cohort": "A",
+	"result": 1
+    },
+    {
+	"date": "2015-5-26",
+	"cohort": "A",
+	"result": 0
+    },
+    {
+	"date": "2015-5-26",
+	"cohort": "B",
+	"result": 0
+    },
+    {
+	"date": "2015-5-26",
+	"cohort": "A",
+	"result": 1
+    }
+]
