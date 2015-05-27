@@ -46,15 +46,23 @@ class Bomb
   private
 
   def validate_codes(activation_code, deactivation_code)
-    activation_code = "1234" if !activation_code || activation_code.empty?
-    deactivation_code = "0000" if !deactivation_code || deactivation_code.empty?
+    activation_code = default_code_fix(activation_code, "1234")
+    deactivation_code = default_code_fix(deactivation_code, "0000")
 
-    if !in_range(activation_code) || !in_range(deactivation_code)
-      fail InvalidCode, "The codes used to configre the bomb are invalid"
-    end
+    range_check(activation_code, deactivation_code)
 
     @activation_code = activation_code
     @deactivation_code = deactivation_code
+  end
+
+  def default_code_fix(code, default)
+    code = default if !code || code.empty?
+    code
+  end
+
+  def range_check(activation_code, deactivation_code)
+    return if in_range(activation_code) && in_range(deactivation_code)
+    fail InvalidCode, "The codes used to configre the bomb are invalid"
   end
 
   def in_range(code)

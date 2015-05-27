@@ -28,15 +28,7 @@ def reset_bomb(browser)
 end
 
 def gen_boot_url(acode, dcode)
-  url = '/api/boot'
-  if acode && dcode
-    url += "?activation_code=#{acode}&deactivation_code=#{dcode}"
-  elsif acode && !dcode
-    url += "?activation_code=#{acode}"
-  elsif dcode && !acode
-    url += "?deactivation_code=#{dcode}"
-  end
-  url
+  "/api/boot?activation_code=#{acode}&deactivation_code=#{dcode}"
 end
 
 def boot_bomb(browser, acode = nil, dcode = nil)
