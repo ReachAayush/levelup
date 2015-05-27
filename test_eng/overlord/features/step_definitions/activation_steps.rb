@@ -3,44 +3,11 @@ ENV['RACK_ENV'] = 'test'
 require_relative '../../overlord'
 require 'rack/test'
 require 'rspec'
-require 'json'
 
-def post_data(url)
-  browser = Rack::Test::Session.new(Rack::MockSession.new(Sinatra::Application))
-  browser.post url
-  expect(browser.last_response).to be_ok
-  data = JSON.parse(browser.last_response.body)  
-end
+require_relative 'sinatra_helpers'
 
-def get_data(url)
-  browser = Rack::Test::Session.new(Rack::MockSession.new(Sinatra::Application))
-  browser.get url
-  expect(browser.last_response).to be_ok
-  data = JSON.parse(browser.last_response.body)  
-end
-
-def reset_bomb
-  data = post_data('/api/reset')
-  expect(data['success']).to be_truthy
-  expect(data['state']).to eq('unset')
-end
-
-def boot_bomb(acode)
-  data = post_data("/api/boot?activation_code=#{acode}")
-  expect(data['success']).to be_truthy
-  expect(data['state']).to eq('booted')
-end
-
-def activate_bomb(acode)
-  data = post_data("/api/activate?activation_code=#{acode}")
-  expect(data['success']).to be_truthy
-  expect(data['state']).to eq('active')
-end
-
-def check_state(state)
-  data = get_data('/api/state')
-  expect(data['state']).to eq(state)
-end
+DEFAULT_ACODE = "1234"
+DEFAULT_DCODE = "0000"
 
 Given(/^the bomb is not booted$/) do
   reset_bomb
@@ -55,9 +22,7 @@ Then(/^The bomb will activate with code (\d+)$/) do |acode|
 end
 
 When(/^I boot the bomb with no activation code$/) do
-  data = post_data('/api/boot')
-  expect(data['success']).to be_truthy
-  expect(data['state']).to eq('booted')  
+  boot_bomb
 end
 
 Given(/^the bomb has been booted with activation code (\d+)$/) do |acode|
