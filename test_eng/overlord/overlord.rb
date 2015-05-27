@@ -6,6 +6,7 @@ require_relative 'bomb'
 
 enable :sessions
 # I might need to set the display on exceptions
+set :show_exceptions, :after_handler
 
 configure do
   bomb = Bomb.new
@@ -28,8 +29,8 @@ post '/api/reset' do
 end
 
 post '/api/boot' do
-  puts "Given: #{params[:activation_code]}, #{params[:deactivation_code]}"
   bomb = get_bomb
+  puts params
   bomb.boot(params[:activation_code], params[:deactivation_code])
   res = {
     success: true,
@@ -75,8 +76,8 @@ get '/api/state' do
 end
 
 error BombError do
-  bomb = get_bomb
   status 200
+  bomb = get_bomb
   res = {
     success: false,
     state: bomb.state,
@@ -91,7 +92,7 @@ def start_time
 end
 
 def get_bomb
-  session[:bomb]
+  session[:bomb] || Bomb.new
 end
 
 def set_bomb(b)

@@ -1,10 +1,41 @@
 <html>
   <head>
     <title>TEST</title>
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/min/1.5/min.min.css">
+    <link rel="stylesheet" href="min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="text/javascript" href="http://code.jquery.com/jquery-2.1.4.min.js">
+    <link rel="text/javascript" href="ajax_script.js">
   </head>
   <body>
-    <h1>TESTING</h1>
-    <p>1,2,3....</p>
+    <nav class="nav" tabindex="-1" onclick="this.focus()">
+      <div class="container">
+	<a class="pagename current" href="index.html">Overlord</a>
+	<a href="about.htm">About</a>
+	<a href="https://github.com/packrat386/levelup/tree/master/test_eng/overlord">Github</a>
+      </div>
+    </nav>
+    <button class="btn btn-sm btn-close">×</button>
+    <div class="container">
+      <h1>The Bomb!</h1>
+      <p>I've even created a beautiful browser interface to my bomb, but will you guess the correct deactivation code?</p>
+      <div id="bomb-msg" class="msg" style="display: none"></div>
+      <div id="bomb" class="col-center">
+	<h3>Status: <span id="status"></span></h3>
+	<table class="table">
+	  <tr id="acode-tr" style="display: none">
+	    <td>Activation Code</td>
+	    <td><input id="acode" type="text" class="smooth"></td>
+	  </tr>
+	  <tr id="dcode-tr" style="display: none">
+	    <td>Deactivation Code</td>
+	    <td><input id="dcode" type="text" class="smooth"></td>
+	  </tr>
+	</table>
+	<div id="submit" class="btn btn-c smooth"></div>
+      </div>
+      <p>Mwahahahahahahahahahahahahahahahahaha</p>
+    </div>
   </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="ajax_script.js"></script>
 </html>

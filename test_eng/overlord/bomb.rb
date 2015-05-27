@@ -50,16 +50,12 @@ class Bomb
 
   def validate_codes(activation_code, deactivation_code)
     if !activation_code
-      puts "default initializing acode"
       activation_code = "1234"
     end
 
     if !deactivation_code
-      puts "default initializing dcode"
       deactivation_code = "0000"
     end
-
-    puts "Got: #{activation_code}, #{deactivation_code}"
 
     if !in_range(activation_code) || !in_range(deactivation_code)
       fail InvalidCode, "The codes used to configre the bomb are invalid"
