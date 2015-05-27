@@ -5,22 +5,24 @@ require 'rack/test'
 require 'rspec'
 require 'json'
 
-def post_data(url)
-  browser = Rack::Test::Session.new(Rack::MockSession.new(Sinatra::Application))
+def get_browser
+  Rack::Test::Session.new(Rack::MockSession.new(Sinatra::Application))
+end
+
+def post_data(browser, url)
   browser.post url
   expect(browser.last_response).to be_ok
   data = JSON.parse(browser.last_response.body)  
 end
 
-def get_data(url)
-  browser = Rack::Test::Session.new(Rack::MockSession.new(Sinatra::Application))
+def get_data(browser, url)
   browser.get url
   expect(browser.last_response).to be_ok
   data = JSON.parse(browser.last_response.body)  
 end
 
-def reset_bomb
-  data = post_data('/api/reset')
+def reset_bomb(browser)
+  data = post_data(browser, '/api/reset')
   expect(data['success']).to be_truthy
   expect(data['state']).to eq('unset')
 end
@@ -37,30 +39,30 @@ def gen_boot_url(acode, dcode)
   url
 end
 
-def boot_bomb(acode=nil, dcode=nil)
+def boot_bomb(browser, acode=nil, dcode=nil)
   url = gen_boot_url(acode, dcode)
-  data = post_data(url)
+  data = post_data(browser, url)
   expect(data['success']).to be_truthy
   expect(data['state']).to eq('booted')
 end
 
-def activate_bomb(acode)
-  data = post_data("/api/activate?activation_code=#{acode}")
+def activate_bomb(browser, acode)
+  data = post_data(browser, "/api/activate?activation_code=#{acode}")
   expect(data['success']).to be_truthy
   expect(data['state']).to eq('active')
 end
 
-def deactivate_bomb(dcode)
-  data = try_deactivate_bomb(dcode)
+def deactivate_bomb(browser, dcode)
+  data = try_deactivate_bomb(browser, dcode)
   expect(data['success']).to be_truthy
   expect(data['state']).to eq('defused')
 end
 
-def try_deactivate_bomb(dcode)
-  data = post_data("/api/deactivate?deactivation_code=#{dcode}")
+def try_deactivate_bomb(browser, dcode)
+  data = post_data(browser, "/api/deactivate?deactivation_code=#{dcode}")
 end
  
-def check_state(state)
-  data = get_data('/api/state')
+def check_state(browser, state)
+  data = get_data(browser, '/api/state')
   expect(data['state']).to eq(state)
 end
