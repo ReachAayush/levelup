@@ -24,12 +24,14 @@ When(/^I boot the bomb with activation code (\d+)$/) do |acode|
   expect(data["state"]).to eq("booted")
 end
 
-Then(/^The bomb will activate with code (\d+)$/) do |arg1|
-  pending
+Then(/^The bomb will activate with code (\d+)$/) do |acode|
+  data = get_data("/api/activate?activation_code=#{acode}")
+  expect(data["success"]).to be_truthy
+  expect(data["state"]).to eq("active")
 end
 
 When(/^I boot the bomb with no activation code$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+
 end
 
 Given(/^the bomb has been booted with activation code (\d+)$/) do |arg1|
