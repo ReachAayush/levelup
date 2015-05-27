@@ -5,21 +5,27 @@ require 'rack/test'
 require 'rspec'
 require 'json'
 
-Given(/^the bomb is not booted$/) do
+def get_data(url)
   browser = Rack::Test::Session.new(Rack::MockSession.new(Sinatra::Application))
-  browser.post '/api/reset'
+  browser.post url
   expect(browser.last_response).to be_ok
-  data = JSON.parse(browser.last_response.body)
+  data = JSON.parse(browser.last_response.body)  
+end
+
+Given(/^the bomb is not booted$/) do
+  data = get_data('/api/reset')
   expect(data["success"]).to be_truthy
   expect(data["state"]).to eq("unset")
 end
 
-When(/^I boot the bomb with activation code (\d+)$/) do |arg1|
-
+When(/^I boot the bomb with activation code (\d+)$/) do |acode|
+  data = get_data("/api/boot?activation_code=#{acode}")
+  expect(data["success"]).to be_truthy
+  expect(data["state"]).to eq("booted")
 end
 
 Then(/^The bomb will activate with code (\d+)$/) do |arg1|
-  pending # Write code here that turns the phrase above into concrete actions
+  pending
 end
 
 When(/^I boot the bomb with no activation code$/) do
