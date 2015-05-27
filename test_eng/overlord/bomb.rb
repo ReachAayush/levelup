@@ -49,11 +49,11 @@ class Bomb
   private
 
   def validate_codes(activation_code, deactivation_code)
-    if !activation_code
+    if !activation_code || activation_code.empty?
       activation_code = "1234"
     end
 
-    if !deactivation_code
+    if !deactivation_code || deactivation_code.empty?
       deactivation_code = "0000"
     end
 

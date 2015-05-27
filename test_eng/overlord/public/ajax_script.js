@@ -8,16 +8,20 @@ $(document).ready(function () {
 
 $("#submit").click(function() {
     console.log("CLICKED");
-    var acode = $("#acode").text();
-    var dcode = $("#dcode").text();
+    var acode = $("#acode").val();
+    var dcode = $("#dcode").val();
+    // clear them after
+    $("#acode").val('');
+    $("#dcode").val('');
     var url = $("#submit").attr("url")
 
-    $.post(url,
-	   {
-	       activation_code: acode,
-	       deactivation_code: dcode,
-	   },
-	   function (raw) {
+    params = {}
+    params.activation_code = acode;
+    params.deactivation_code = dcode;
+
+    console.log(params);
+    
+    $.post(url, params, function (raw) {
 	       data = JSON.parse(raw);
 	       view_handler(data);
 	   });
@@ -46,11 +50,11 @@ function view_handler (data) {
 	view_boot(data);
     } else if (data.state == "booted") {
 	view_activate(data);
-    } else if (data.state == "activated") {
+    } else if (data.state == "active") {
 	view_deactivate(data);
     } else if (data.state == "defused") {
 	view_reset(data);
-    } else if (data.stat == "detonated") {
+    } else if (data.state == "detonated") {
 	view_reset(data);
     }
 }
