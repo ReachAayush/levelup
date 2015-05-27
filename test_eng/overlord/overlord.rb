@@ -5,57 +5,62 @@ require 'json'
 require_relative 'bomb'
 
 enable :sessions
+set :raise_errors, false
+set :show_exceptions, false
 
+configure do
+  @@bomb = Bomb.new
+end
 
 get '/' do
-  @bomb ||= Bomb.new
   "Time to build an app around here. Start time: " + start_time
 end
 
 post '/api/reset' do
-  @bomb = Bomb.new
+  @@bomb = Bomb.new
   res = {
     success: true,
-    state: @bomb.state,
+    state: @@bomb.state,
     msg: "Bomb reset",
   }
   JSON.generate(res)
 end
 
 post '/api/boot' do
-  @bomb.boot(params[:activation_code], params[:deactivation_code])
+  puts "Given: #{params[:activation_code]}, #{params[:deactivation_code]}"
+  @@bomb.boot(params[:activation_code], params[:deactivation_code])
   res = {
     success: true,
-    state: @bomb.state,
+    state: @@bomb.state,
     msg: "Bomb booted successfully",
   }
   JSON.generate(res)
 end
 
 post '/api/activate' do
-  @bomb.activate(params[:activation_code])
+  @@bomb.activate(params[:activation_code])
   res = {
     success: true,
-    state: @bomb.state,
+    state: @@bomb.state,
     msg: "Bomb activated",
   }
   JSON.generate(res)
 end
 
-post `/api/deactivate/` do
-  @bomb.deactivate(params[:deactivation_code])
+post '/api/deactivate' do
+  @@bomb.deactivate(params[:deactivation_code])
   res = {
     success: true,
-    state: @bomb.state,
+    state: @@bomb.state,
     msg: "Bomb defused (Counter Terrorists Win)"
   }
   JSON.generate(res)
 end
 
-error do
+error BombError do
   res = {
     success: false,
-    state: @bomb.state,
+    state: @@bomb.state,
     msg: env['sinatra.error'].message
   }
   JSON.generate(res)
