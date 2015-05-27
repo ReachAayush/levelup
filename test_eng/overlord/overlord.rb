@@ -57,7 +57,17 @@ post '/api/deactivate' do
   JSON.generate(res)
 end
 
+get '/api/state' do
+  res = {
+    success: true,
+    state: @@bomb.state,
+    msg: nil,
+  }
+  JSON.generate(res)
+end
+
 error BombError do
+  status 200
   res = {
     success: false,
     state: @@bomb.state,
