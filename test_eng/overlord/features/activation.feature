@@ -1,7 +1,7 @@
 Feature: Bomb can be activated
   In order to activate my bomb from long range
   As a mad scientist
-  I want to active the bomb from a web application
+  I want to activate the bomb from a web application
 
   Scenario: Configuration
     Given the bomb is not booted
