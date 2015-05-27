@@ -10,7 +10,7 @@ DEFAULT_ACODE = "1234"
 DEFAULT_DCODE = "0000"
 
 Given(/^the bomb is not booted$/) do
-  @browser = get_browser
+  @browser = new_browser
   reset_bomb(@browser)
 end
 
@@ -27,7 +27,7 @@ When(/^I boot the bomb with no activation code$/) do
 end
 
 Given(/^the bomb has been booted with activation code (\d+)$/) do |acode|
-  @browser = get_browser
+  @browser = new_browser
   reset_bomb(@browser)
   boot_bomb(@browser, acode)
 end
@@ -46,7 +46,7 @@ Then(/^the bomb will not be activated$/) do
 end
 
 Given(/^the bomb has been activated with code (\d+)$/) do |acode|
-  @browser = get_browser
+  @browser = new_browser
   reset_bomb(@browser)
   boot_bomb(@browser, acode)
   activate_bomb(@browser, acode)

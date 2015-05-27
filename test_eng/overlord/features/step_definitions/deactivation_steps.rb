@@ -27,7 +27,7 @@ When(/^I boot the bomb with no deactivation code$/) do
 end
 
 Given(/^the bomb is activated with deactivation code (\d+)$/) do |dcode|
-  @browser = get_browser
+  @browser = new_browser
   reset_bomb(@browser)
   boot_bomb(@browser, nil, dcode)
   activate_bomb(@browser, DEFAULT_ACODE)

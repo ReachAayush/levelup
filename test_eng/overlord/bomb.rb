@@ -38,33 +38,25 @@ class Bomb
 
   def deactivate(code)
     fail InvalidTransition, "Bomb is not active" unless @state == :active
-    if code != @deactivation_code
-      fail_deactivation
-    end
+    fail_deactivation if code != @deactivation_code
 
     @state = :defused
   end
 
-  
   private
 
   def validate_codes(activation_code, deactivation_code)
-    if !activation_code || activation_code.empty?
-      activation_code = "1234"
-    end
-
-    if !deactivation_code || deactivation_code.empty?
-      deactivation_code = "0000"
-    end
+    activation_code = "1234" if !activation_code || activation_code.empty?
+    deactivation_code = "0000" if !deactivation_code || deactivation_code.empty?
 
     if !in_range(activation_code) || !in_range(deactivation_code)
       fail InvalidCode, "The codes used to configre the bomb are invalid"
     end
-    
+
     @activation_code = activation_code
     @deactivation_code = deactivation_code
   end
-  
+
   def in_range(code)
     /^[0-9]{4}$/.match(code)
   end

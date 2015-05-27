@@ -5,20 +5,20 @@ require 'rack/test'
 require 'rspec'
 require 'json'
 
-def get_browser
+def new_browser
   Rack::Test::Session.new(Rack::MockSession.new(Sinatra::Application))
 end
 
 def post_data(browser, url)
   browser.post url
   expect(browser.last_response).to be_ok
-  data = JSON.parse(browser.last_response.body)  
+  JSON.parse(browser.last_response.body)
 end
 
 def get_data(browser, url)
   browser.get url
   expect(browser.last_response).to be_ok
-  data = JSON.parse(browser.last_response.body)  
+  JSON.parse(browser.last_response.body)
 end
 
 def reset_bomb(browser)
@@ -39,7 +39,7 @@ def gen_boot_url(acode, dcode)
   url
 end
 
-def boot_bomb(browser, acode=nil, dcode=nil)
+def boot_bomb(browser, acode = nil, dcode = nil)
   url = gen_boot_url(acode, dcode)
   data = post_data(browser, url)
   expect(data['success']).to be_truthy
@@ -59,9 +59,9 @@ def deactivate_bomb(browser, dcode)
 end
 
 def try_deactivate_bomb(browser, dcode)
-  data = post_data(browser, "/api/deactivate?deactivation_code=#{dcode}")
+  post_data(browser, "/api/deactivate?deactivation_code=#{dcode}")
 end
- 
+
 def check_state(browser, state)
   data = get_data(browser, '/api/state')
   expect(data['state']).to eq(state)
