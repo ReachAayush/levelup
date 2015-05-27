@@ -12,7 +12,7 @@ configure do
 end
 
 get '/' do
-  "Time to build an app around here. Start time: " + start_time
+  redirect '/index.htm'
 end
 
 post '/api/reset' do
