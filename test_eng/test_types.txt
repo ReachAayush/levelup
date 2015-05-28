@@ -1,0 +1,14 @@
+TYPES OF TESTS
+
+1: Unit Tests - These are tests if specific capabilities of individual classes usually or models. These test attempt to be as focused as possible so as to only test one small piece of behaviour with each test. The goal then is to be able to tell what part of a class isn't working if it's doing something wrong. We wrote these with RSpec
+
+2: Integration Tests - These are tests of a complete scenario from start to finish. Testing something like "Can a user create an account" or "Can a user save a file" would fall under the realm of integration testing. We have these tests so that we can understand when the project meets the needs that the users described. We wrote these with Cucumber.
+
+3: Functional Tests - We didn't write any of these, but these are tests that the individual controllers in the application are working properly. Testing whether the user can successfully get one page or post one request would fall under functional testing. A pseudocode example follows
+
+def FunctionalTest
+    get '/about'
+    assert(last_response.ok?)
+    assert(!last_response.body.empty?)
+    assert(last_response.body.contains('About this site')
+end
