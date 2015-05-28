@@ -1,3 +1,5 @@
 MANUAL TESTING
 
-1: 
+1: Manual testing can be necessary particularly when doing user acceptance tests on GUI's. Even with testing suites like Capybara it can be difficult to check all of the nooks and crannies that are selectable on a web page. Also, as interesting as Capybara is it can't verify whether a design looks good.
+
+2: I would say the main strategy is just to make sure that you aren't doing manual tests that repeat efforts that you've aleady tested with automated testing suites.
