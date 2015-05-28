@@ -1,0 +1,7 @@
+CAPYBARA
+
+1: We use Capybara for functional and integration tests. Its strengths are that it allows us to simulate the user interacting with the application in a humann readable format. This allows us to better plan the sorts of stories that we want to test. A main limitation of capybara is that due to the nature of how we interact with pages, it can be a bit finicky. It also has trouble with database transactions since it sometimes runs in a separate thread.
+
+2: A Capybara driver is framework that we will use to interact with the application. The default driver is the rack driver, which is good in that it does not require an actual browser and is thus quite fast and stable.
+
+3: A downside is that the default driver cannot execute javascript and thus would ahve trouble interacting with a page that relies heavily on things like AJAX.
