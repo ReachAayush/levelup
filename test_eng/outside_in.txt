@@ -1,0 +1,31 @@
+OUTSIDE IN TESTING
+
+1: This so far has been the most interesting article I've read on TDD/BDD since before reading it I was of the opinion that TDD/BDD is just a sort of quirky way to make sure your code is actually tested. "Writing the code you want to see" essentially entails that you plan the interface for the parts of your application while writing your tests (which you do before writing the application). By doing this you can ensure that the parts of your application have "ideal" interfaces.
+
+Lets say you were writing a piece of software to parse JSON into Hashes because you really like reinventing the wheel. You might write something like the following for a test
+
+def test_my_lib
+    test_data = File.read('test.json')
+    test_hash = JSON.parse(test_data)
+    expect(test_hash).to eq(comp_hash)
+end
+
+The interface here is nice (and happens to look surprisingly like the std library) and we know because we wrote the test that this would be an ideal and easy way for this library to work.
+
+Imagine instead that we had created a class that works like this
+
+class JsonParser
+      def initialize(data)
+      	  # do stuff
+      end
+
+      def parse
+      	  # returns our hash
+      end
+end
+
+This interface is a little less nice, and we would have tested it as above instead doing
+parser = JsonParser.new(data)
+test_hash = parser.parse
+
+But that's far more cumbersome. By writing our tests first and designing the system from the outside in, we're more likely to end up with optimal interfaces and we likely won't make any problems harder than they need to be
