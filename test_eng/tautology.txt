@@ -1,0 +1,39 @@
+TAUTOLOGICAL TESTS
+
+A Tautological test is one that simply mirrors the logic of the functionality it is testing. For example let's say we had a method to find the average of an array of integers
+
+double sum (vector<int> data)
+{
+    // impl
+}
+
+int count (vector<int> data)
+{
+    // impl
+}
+
+// We want to test this method
+double avg (vector<int> data)
+{
+       return sum(data) / count (data)
+}
+
+bool test_avg ()
+{
+	auto test = new vector{ 1, 2, 3, 4, 5 };
+	auto res = avg(test);
+	assert(res == sum(test)/count(test));
+}
+
+This test is tautologial in that all that it does is ensure that our function calls the same methods as the test for it. Not only does it not test behaviour, but it can also make the design brittle (if for example you decided to move away from using one of the methods in the test and their functionality eventually diverged)
+
+A better test would be
+
+bool test_avg ()
+{
+	auto test = new vector{ 1, 2, 3, 4, 5 };
+	auto res = avg(test);
+	assert(res == 3.0); // we're going to conveniently ignore the fact that comparing doubles in this way is dangerous af
+}
+
+This tests the behaviour of the function without perscribing how it does it's job.
