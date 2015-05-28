@@ -1,0 +1,8 @@
+FLAPPERS
+
+1: A flapping test is a test that seems to switch between passing and failing "randomly" or at least without significant changes in the code that could cause it to break. The bugs are usually hard to reproduce on a dev machine and it can be hard to tell why they failed. Flapping tests are particularly bad because they tend to undermine the utility of the testing suite. The testing suite exists to let you know whether the changes you made to code are breaking it, and CI allows you to continually check this. The issue is that if you have flapping tests then there is a tendency to start ignoring failures of certain tests, which can lead to your test suite not being useful.
+
+2: Gotchas
+ - One major problem with test is accidentally including some data that is time sensitive, especially if your CI machine might have weird rules for time. A way to fix that would be to use a uniform set of methods for any time sensitive data in your tests and ensure that those methods have a predictable output.
+ - Another issue is tests with random dat that might have a different range than you think. One example given in the talk was a method that randomly selects a state, but includes Guam and Puerto Rico, which threw off their tests.
+ - One issue particular to front-end testing is the way that AJAX works can sometimes lead to a test not seeing something that it should because it didn't show up soon enough. One way to deal with that is to increase the amount of time the application will wait after an asynchronous request.
