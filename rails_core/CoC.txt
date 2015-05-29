@@ -1,0 +1,16 @@
+CONVENTION OVER CONFIGURATION
+
+CoC helps us to work better as a team primarily because it allows us to understand the structure of each others code and not have to worry about trying to understnad the structure or norms of a piece of code that was developed by someone else. I actually disagree with the assessment in the video that CoC helps prevent mental fatigue because as long as you have a personal standard you don't have to make too many decision. For example if I'm writing C++, personally I always put the opening bracket of a function declaration on a new line like so
+
+int func (int arg)
+{
+	// defn
+}
+
+This isn't a standard that is enforced by C, since I could just as easily write
+
+int func (int arg) {
+    // defn
+}
+
+The issuewith the analysis in the video however is that it assumes that in the abscence of a framework forcing my hand, I'm likely to decide where to put the bracket every time. This example is a bit of a small one, but in general the fact that style guides exist that can be used means that CoC isn't that important to prevent mental fatigue.
